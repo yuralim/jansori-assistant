@@ -1,6 +1,4 @@
-def main():
-    print("Hello from jansori-assistant!")
-
+from interfaces.telegram.bot import run
 
 if __name__ == "__main__":
-    main()
+    run()
