@@ -18,7 +18,12 @@ See [docs/](docs/) for project overview and roadmap.
    ```sh
    uv run python main.py
    ```
-5. In Telegram, DM the bot `/ping` — it should reply `pong`.
+5. In Telegram, DM the bot:
+   - `/start` — get a short introduction
+   - `/help` — list the available commands
+   - `/ping` — should reply `pong`
+
+   Any other command or plain text message gets a short fallback reply pointing back to `/help`.
 
 Run tests with:
 ```sh
