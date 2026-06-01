@@ -2,7 +2,7 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from interfaces.telegram.handlers import help_command, ping, start
+from adapters.telegram.handlers import help_command, ping, start
 
 
 def _make_update(text: str):

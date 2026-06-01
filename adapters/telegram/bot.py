@@ -4,8 +4,9 @@ import os
 from dotenv import load_dotenv
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
 
-from interfaces.telegram.fallbacks import text_message, unknown_command
-from interfaces.telegram.handlers import help_command, ping, start
+from adapters.telegram.fallbacks import text_message, unknown_command
+from adapters.telegram.handlers import help_command, ping, start
+from core.logging import configure_logging
 
 logger = logging.getLogger(__name__)
 
@@ -17,10 +18,7 @@ def run() -> None:
     if not token:
         raise RuntimeError("TELEGRAM_BOT_TOKEN is not set")
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s %(levelname)s %(name)s - %(message)s",
-    )
+    configure_logging()
 
     app = ApplicationBuilder().token(token).build()
     app.add_handler(CommandHandler("start", start))

@@ -1,7 +1,10 @@
 import logging
+import uuid
 
 from telegram import Update
 from telegram.ext import ContextTypes
+
+from core.logging import request_id
 
 logger = logging.getLogger(__name__)
 
@@ -11,6 +14,7 @@ TEXT_FALLBACK_REPLY = "알았어. 아직은 간단한 답장만 할 수 있지�
 
 
 async def unknown_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    request_id.set(uuid.uuid4().hex[:8])
     message = update.effective_message
     user = update.effective_user
     if message is None:
@@ -27,6 +31,7 @@ async def unknown_command(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 
 async def text_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    request_id.set(uuid.uuid4().hex[:8])
     message = update.effective_message
     user = update.effective_user
     if message is None:
