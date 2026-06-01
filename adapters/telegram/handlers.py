@@ -1,7 +1,10 @@
 import logging
+import uuid
 
 from telegram import Update
 from telegram.ext import ContextTypes
+
+from core.logging import request_id
 
 logger = logging.getLogger(__name__)
 
@@ -14,6 +17,7 @@ HELP_REPLY = (
 
 
 async def ping(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    request_id.set(uuid.uuid4().hex[:8])
     message = update.effective_message
     user = update.effective_user
     if message is None:
@@ -30,6 +34,7 @@ async def ping(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    request_id.set(uuid.uuid4().hex[:8])
     message = update.effective_message
     user = update.effective_user
     if message is None:
@@ -46,6 +51,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    request_id.set(uuid.uuid4().hex[:8])
     message = update.effective_message
     user = update.effective_user
     if message is None:

@@ -37,3 +37,12 @@ Format and lint with [Ruff](https://docs.astral.sh/ruff/):
 make format    # or: uv run ruff format .
 make lint   # or: uv run ruff check .
 ```
+
+Install git pre-commit hooks (one time, after `uv sync`):
+```sh
+make install-hooks
+```
+Run all hooks against the repo:
+```sh
+make precommit
+```

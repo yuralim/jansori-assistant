@@ -2,7 +2,7 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from interfaces.telegram.fallbacks import text_message, unknown_command
+from adapters.telegram.fallbacks import text_message, unknown_command
 
 
 def _make_update(text: str):
