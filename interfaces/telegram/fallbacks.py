@@ -5,11 +5,9 @@ from telegram.ext import ContextTypes
 
 logger = logging.getLogger(__name__)
 
-UNKNOWN_COMMAND_REPLY = "I don't recognize that command. Try /help."
+UNKNOWN_COMMAND_REPLY = "아직 모르는 명령어야. 사용할 수 있는 명령어를 보려면 /help 를 입력해줘."
 
-TEXT_FALLBACK_REPLY = (
-    "I can only respond to commands right now. Try /help to see what's available."
-)
+TEXT_FALLBACK_REPLY = "알았어. 아직은 간단한 답장만 할 수 있지만, 앞으로는 더 똑똑하게 도와줄게."
 
 
 async def unknown_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

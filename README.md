@@ -20,12 +20,20 @@ See [docs/](docs/) for project overview and roadmap.
    ```
 5. In Telegram, DM the bot:
    - `/start` — get a short introduction
-   - `/help` — list the available commands
+   - `/help` — show a short help message
    - `/ping` — should reply `pong`
 
-   Any other command or plain text message gets a short fallback reply pointing back to `/help`.
+   Any other command or plain text message gets a short fallback reply.
 
-Run tests with:
+## Development
+
+Run tests:
 ```sh
 uv run pytest
+```
+
+Format and lint with [Ruff](https://docs.astral.sh/ruff/):
+```sh
+make format    # or: uv run ruff format .
+make lint   # or: uv run ruff check .
 ```

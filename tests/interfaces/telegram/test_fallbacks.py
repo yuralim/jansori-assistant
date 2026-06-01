@@ -38,4 +38,4 @@ async def test_text_message_falls_back():
 
     update.message.reply_text.assert_awaited_once()
     reply = update.message.reply_text.await_args.args[0]
-    assert "/help" in reply
+    assert "똑똑하게" in reply

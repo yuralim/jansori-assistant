@@ -5,16 +5,11 @@ from telegram.ext import ContextTypes
 
 logger = logging.getLogger(__name__)
 
-START_REPLY = (
-    "Hi, I'm Jansori — your slightly nagging personal assistant. "
-    "Send /help to see what I can do so far."
-)
+START_REPLY = "안녕! 나는 소리야. 오늘은 뭘 하고 싶어? 도움이 필요하면 /help 를 입력해줘."
 
 HELP_REPLY = (
-    "Available commands:\n"
-    "/start - greet and introduce me\n"
-    "/help - show this message\n"
-    "/ping - check that I'm alive"
+    "지금은 기본 명령어만 사용할 수 있어. /start 로 다시 시작할 수 있고, "
+    "앞으로 할 일 관리와 리마인더 기능을 하나씩 배워갈 예정이야."
 )
 
 
