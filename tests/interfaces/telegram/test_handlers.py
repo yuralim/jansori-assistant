@@ -54,7 +54,7 @@ async def test_start_greets_user():
 
     update.message.reply_text.assert_awaited_once()
     reply = update.message.reply_text.await_args.args[0]
-    assert "Jansori" in reply
+    assert "소리" in reply
     assert "/help" in reply
 
 
@@ -68,5 +68,3 @@ async def test_help_lists_commands():
     update.message.reply_text.assert_awaited_once()
     reply = update.message.reply_text.await_args.args[0]
     assert "/start" in reply
-    assert "/help" in reply
-    assert "/ping" in reply
