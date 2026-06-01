@@ -93,6 +93,7 @@ The overall architecture is separated into three layers.
 * **Retrieval system:** instead of injecting everything every time, selectively inject only relevant context
 * **Weekly reflection:** once a week, use a stronger model for deeper reflection (“Looking at this week’s pattern…”)
 * Expand habit types (3–5 total)
+* **Data retention policy**: Systemize raw messages older than N days dropped after summarization
 
 **Why at this stage:** Meaningful retrieval and pattern analysis only become possible after enough data has accumulated through Phase 2. Building this too early would just be overengineering on empty memory.
 

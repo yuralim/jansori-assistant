@@ -25,11 +25,25 @@ See [docs/](docs/) for project overview and roadmap.
 
    Any other command or plain text message gets a short fallback reply.
 
+## Database
+
+Start a local Postgres (Docker required) and run migrations:
+```sh
+make db-up
+make db-migrate
+```
+Stop it with `make db-down`. The connection string is set via `DATABASE_URL` in `.env`.
+
 ## Development
 
-Run tests:
+Run unit tests (default — no external services):
 ```sh
 uv run pytest
+```
+
+Run integration tests (requires Docker; a Postgres container is started automatically via Testcontainers):
+```sh
+make test-integration
 ```
 
 Format and lint with [Ruff](https://docs.astral.sh/ruff/):

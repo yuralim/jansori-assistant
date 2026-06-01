@@ -7,6 +7,9 @@ requires-python = ">=3.13"
 dependencies = [
     "python-telegram-bot>=21,<22",
     "python-dotenv>=1.0",
+    "sqlalchemy[asyncio]>=2.0",
+    "asyncpg>=0.29",
+    "alembic>=1.13",
 ]
 
 [dependency-groups]
@@ -15,6 +18,7 @@ dev = [
     "pytest-asyncio>=0.23",
     "ruff>=0.6",
     "pre-commit>=3.7",
+    "testcontainers[postgres]>=4",
 ]
 
 [tool.ruff]
