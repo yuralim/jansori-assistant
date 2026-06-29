@@ -1,31 +1,34 @@
 import logging
-import os
 
-from dotenv import load_dotenv
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
+from telegram import Update
+from telegram.ext import Application, ApplicationBuilder, ContextTypes, MessageHandler, filters
 
-from adapters.telegram.fallbacks import text_message, unknown_command
-from adapters.telegram.handlers import help_command, ping, start
-from core.logging import configure_logging
+from core.adapter import IncomingMessage
+from core.adapter import MessageHandler as CoreMessageHandler
 
 logger = logging.getLogger(__name__)
 
 
-def run() -> None:
-    load_dotenv()
+class TelegramAdapter:
+    def __init__(self, token: str, handler: CoreMessageHandler) -> None:
+        self._handler = handler
+        self._app: Application = ApplicationBuilder().token(token).build()
+        self._app.add_handler(MessageHandler(filters.ALL, self._on_update))
 
-    token = os.environ.get("TELEGRAM_BOT_TOKEN")
-    if not token:
-        raise RuntimeError("TELEGRAM_BOT_TOKEN is not set")
+    async def send_message(self, chat_id: int, text: str) -> None:
+        await self._app.bot.send_message(chat_id=chat_id, text=text)
 
-    configure_logging()
+    def start(self) -> None:
+        logger.info("Telegram bot starting (polling mode)")
+        self._app.run_polling()
 
-    app = ApplicationBuilder().token(token).build()
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("help", help_command))
-    app.add_handler(CommandHandler("ping", ping))
-    app.add_handler(MessageHandler(filters.COMMAND, unknown_command))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, text_message))
+    async def _on_update(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        message = update.effective_message
+        if message is None:
+            logger.warning("received update without an effective message")
+            return
 
-    logger.info("Telegram bot starting (polling mode)")
-    app.run_polling()
+        incoming = IncomingMessage(chat_id=message.chat_id, text=message.text or "")
+        reply = await self._handler(incoming)
+        if reply is not None:
+            await self.send_message(message.chat_id, reply)
