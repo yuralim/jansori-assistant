@@ -23,7 +23,9 @@ async def _truncate_tables(_postgres_container: PostgresContainer) -> None:
     yield
     engine = engine_module.get_engine()
     table_names = ", ".join(t.name for t in Base.metadata.sorted_tables)
-    if not table_names:
-        return
-    async with engine.begin() as conn:
-        await conn.execute(text(f"TRUNCATE TABLE {table_names} RESTART IDENTITY CASCADE"))
+    if table_names:
+        async with engine.begin() as conn:
+            await conn.execute(text(f"TRUNCATE TABLE {table_names} RESTART IDENTITY CASCADE"))
+    await engine.dispose()
+    engine_module._engine = None
+    engine_module._session_factory = None

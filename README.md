@@ -3,7 +3,7 @@ An AI-powered personal assistant project focused on habit management, routine bu
 
 See [docs/](docs/) for project overview and roadmap.
 
-## Run the Telegram bot
+## Setup
 
 1. Create a bot with [@BotFather](https://t.me/BotFather) on Telegram and copy the token.
 2. Copy `.env.example` to `.env` and paste the token:
@@ -14,25 +14,30 @@ See [docs/](docs/) for project overview and roadmap.
    ```sh
    uv sync
    ```
-4. Start the bot (polling mode):
+
+## Run the Telegram bot
+
+1. Start a local Postgres (Docker required) and run migrations:
+   ```sh
+   make db-up
+   make db-migrate
+   ```
+   The connection string is set via `DATABASE_URL` in `.env`.
+2. Start the bot (polling mode):
    ```sh
    uv run python main.py
    ```
-5. In Telegram, DM the bot:
+3. In Telegram, DM the bot:
    - `/start` — get a short introduction
    - `/help` — show a short help message
    - `/ping` — should reply `pong`
 
    Any other command or plain text message gets a short fallback reply.
-
-## Database
-
-Start a local Postgres (Docker required) and run migrations:
-```sh
-make db-up
-make db-migrate
-```
-Stop it with `make db-down`. The connection string is set via `DATABASE_URL` in `.env`.
+4. Stop Postgres when you're done:
+   ```sh
+   make db-down
+   ```
+   To wipe the Postgres volume and start from scratch, run `make db-clean` instead.
 
 ## Development
 

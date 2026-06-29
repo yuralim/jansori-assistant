@@ -1,4 +1,4 @@
-.PHONY: format lint test test-integration install-hooks precommit db-up db-down db-migrate db-revision
+.PHONY: format lint test test-integration install-hooks precommit db-up db-down db-clean db-migrate db-revision
 
 format:
 	uv run ruff format .
@@ -23,6 +23,9 @@ db-up:
 
 db-down:
 	docker compose down
+
+db-clean:
+	docker compose down -v
 
 db-migrate:
 	uv run alembic upgrade head
